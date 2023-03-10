@@ -7,7 +7,7 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
       <Todos />
       <Button title="Go todetails" onPress={() => navigation.navigate('Detail')} />
-      <StatusBar style="auto" />
+      <StatusBar backgroundColor="#4a90e2" barStyle="light-content" />
     </View>
   );
 }
