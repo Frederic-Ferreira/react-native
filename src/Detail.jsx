@@ -1,12 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Button } from "react-native";
-import Todos from './components/Todos';
+import { StyleSheet, View, Text } from "react-native";
 
-export default function Home({ navigation }) {
+export default function Detail() {
   return (
     <View style={styles.container}>
-      <Todos />
-      <Button title="Go todetails" onPress={() => navigation.navigate('Detail')} />
+      <Text>Yes</Text>
       <StatusBar style="auto" />
     </View>
   );
