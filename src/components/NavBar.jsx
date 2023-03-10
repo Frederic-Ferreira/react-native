@@ -1,21 +1,24 @@
-import { View, StyleSheet, Text } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { View, StyleSheet, Text, SafeAreaView } from 'react-native';
 
 function Navbar({navigation, route}) {
 
   return (
-    <View style={styles.navbar}>
-        {route.name === 'Home' && (
-            <>
-            <Text style={styles.title} onPress={() => navigation.navigate('Home')}>Home</Text>
-            <Text style={styles.title} onPress={() => navigation.navigate('Detail')}>Detail</Text>
-            </> 
-        )}
-      {route.name !== 'Home' && (
-            <>
-            <Text style={[styles.title, styles.back]} onPress={() => navigation.goBack()}>Back</Text>
-            </> 
-        )}
-    </View>
+    <SafeAreaView>
+        <View style={styles.navbar}>
+            {route.name === 'Home' && (
+                <>
+                <Text style={styles.title} onPress={() => navigation.navigate('Home')}>Home</Text>
+                <Text style={styles.title} onPress={() => navigation.navigate('Detail')}>Detail</Text>
+                </> 
+            )}
+        {route.name !== 'Home' && (
+                <>
+                <Text style={[styles.title, styles.back]} onPress={() => navigation.goBack()}>Back</Text>
+                </> 
+            )}
+        </View>
+    </SafeAreaView>
   );
 }
 
