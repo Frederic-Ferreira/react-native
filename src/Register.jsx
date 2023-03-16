@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Input, Button } from 'react-native-elements';
@@ -25,7 +26,7 @@ mutation($input: UsersPermissionsRegisterInput!)  {
 }
 `;
 
-export default function Register() {
+export default function Register({navigation}) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,8 +36,12 @@ export default function Register() {
 
   const handleRegister = async () => {
     if(username && email && password && confirmPassword && password === confirmPassword){
-        const user = await register({ variables: { input: { "username": username, "email": email, "password": password } } });
-        console.log(user)
+        try{
+            const user = await register({ variables: { input: { "username": username, "email": email, "password": password } } });
+            user && navigation.navigate('Login')
+        } catch (err){
+            console.log(err)
+        }
     }
   };
 

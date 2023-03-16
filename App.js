@@ -1,4 +1,6 @@
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View } from 'react-native';
@@ -8,8 +10,31 @@ import Home from "./src/Home";
 import Detail from './src/Detail';
 import NavBar from './src/components/NavBar';
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: 'https://digitalcampus.nerdy-bear.com/graphql',
+});
+
+const getJWT = async () => {
+  try {
+      const jwt = await AsyncStorage.getItem('jwt');
+      return jwt;
+  } catch (error) {
+      console.log(error);
+  }
+};
+
+const authLink = setContext(async (_, { headers }) => {
+  const jwt = await getJWT();
+  return {
+    headers: {
+      ...headers,
+      authorization: jwt ? `Bearer ${jwt}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 

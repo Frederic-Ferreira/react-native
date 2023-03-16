@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Input, Button } from 'react-native-elements';
@@ -12,15 +13,20 @@ mutation($input: UsersPermissionsLoginInput!) {
 }
 `;
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
 
   const handleLogin = async () => {
     if(email && password){
-      const jwt = await login({ variables: { input: { "identifier": email, "password": password } } });
-      console.log(jwt)
+      try{
+        const { data } = await login({ variables: { input: { "identifier": email, "password": password } } });
+        await AsyncStorage.setItem('jwt', data.login.jwt);
+        navigation.navigate('Home')
+      } catch (err){
+        console.log(err)
+      }
     }
   };
 
