@@ -1,5 +1,6 @@
 import { View, StyleSheet, Text, SafeAreaView } from 'react-native';
 import Constants from 'expo-constants'
+import { StatusBar } from 'react-native';
 
 function Navbar({navigation, route}) {
 
