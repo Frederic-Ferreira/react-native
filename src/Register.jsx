@@ -4,49 +4,71 @@ import { Input, Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { gql, useMutation } from '@apollo/client';
 
-const LOGIN_MUTATION = gql`
-mutation($input: UsersPermissionsLoginInput!) {
-  login(input: $input){
+const REGISTER_MUTATION = gql`
+mutation($input: UsersPermissionsRegisterInput!)  {
+    register(input: $input) {
     jwt
-  }
+    user {
+        id
+        username
+        email
+        confirmed
+        blocked
+        role {
+        id
+        name
+        description
+        type
+        }
+    }
+    }
 }
 `;
 
-export default function Login() {
+export default function Register() {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  // Pass mutation to useMutation
+  const [register, { data, loading, error }] = useMutation(REGISTER_MUTATION);
 
-  const handleLogin = async () => {
-    if(email && password){
-      const jwt = await login({ variables: { input: { "identifier": email, "password": password } } });
-      console.log(jwt)
+  const handleRegister = async () => {
+    if(username && email && password && confirmPassword && password === confirmPassword){
+        const user = await register({ variables: { input: { "username": username, "email": email, "password": password } } });
+        console.log(user)
     }
   };
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.container}>
       <View style={styles.innerContainer}>
-        <Text style={styles.title}>Log In</Text>
+        <Text style={styles.title}>Register</Text>
+        <Input
+          label="Username"
+          value={username}
+          onChangeText={setUsername}
+        />
         <Input
           label="Email"
           value={email}
           onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCompleteType="email"
         />
         <Input
           label="Password"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
-          autoCapitalize="none"
-          autoCompleteType="password"
+        />
+        <Input
+          label="Confirm Password"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
         />
         <Button
-          title="Login"
-          onPress={handleLogin}
+          title="Register"
+          onPress={handleRegister}
           buttonStyle={styles.button}
         />
         {/* <Text style={styles.button} /> */}

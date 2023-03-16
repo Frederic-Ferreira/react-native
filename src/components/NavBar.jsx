@@ -6,17 +6,13 @@ function Navbar({navigation, route}) {
 
   return (
     <View style={styles.navbar}>
-        {route.name === 'Home' && (
             <>
-            <Text style={styles.title} onPress={() => navigation.navigate('Home')}>Home</Text>
-            <Text style={styles.title} onPress={() => navigation.navigate('Detail')}>Detail</Text>
+            <Text style={styles.title} onPress={() => navigation.navigate('Login')}>Login</Text>
+            <Text style={styles.title} onPress={() => navigation.navigate('Register')}>Register</Text>
+            {/* <Text style={styles.title} onPress={() => navigation.navigate('Home')}>Home</Text>
+            <Text style={styles.title} onPress={() => navigation.navigate('Detail')}>Detail</Text> */}
+            {/* <Text style={[styles.title, styles.back]} onPress={() => navigation.goBack()}>Back</Text> */}
             </> 
-        )}
-      {route.name !== 'Home' && (
-            <>
-            <Text style={[styles.title, styles.back]} onPress={() => navigation.goBack()}>Back</Text>
-            </> 
-        )}
     </View>
   );
 }
