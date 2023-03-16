@@ -3,7 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 function Todos(){
     return(
         <View>
-            <Text style={styles.text}>TODOS</Text>
+            <Text style={styles.text}>TODOS 1</Text>
+            <Text style={styles.text}>TODOS 4</Text>
         </View>
     )
 }

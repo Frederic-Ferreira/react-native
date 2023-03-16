@@ -1,24 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet, Text, SafeAreaView } from 'react-native';
+import Constants from 'expo-constants'
 
 function Navbar({navigation, route}) {
 
   return (
-    <SafeAreaView>
-        <View style={styles.navbar}>
-            {route.name === 'Home' && (
-                <>
-                <Text style={styles.title} onPress={() => navigation.navigate('Home')}>Home</Text>
-                <Text style={styles.title} onPress={() => navigation.navigate('Detail')}>Detail</Text>
-                </> 
-            )}
-        {route.name !== 'Home' && (
-                <>
-                <Text style={[styles.title, styles.back]} onPress={() => navigation.goBack()}>Back</Text>
-                </> 
-            )}
-        </View>
-    </SafeAreaView>
+    <View style={styles.navbar}>
+        {route.name === 'Home' && (
+            <>
+            <Text style={styles.title} onPress={() => navigation.navigate('Home')}>Home</Text>
+            <Text style={styles.title} onPress={() => navigation.navigate('Detail')}>Detail</Text>
+            </> 
+        )}
+      {route.name !== 'Home' && (
+            <>
+            <Text style={[styles.title, styles.back]} onPress={() => navigation.goBack()}>Back</Text>
+            </> 
+        )}
+    </View>
   );
 }
 
@@ -32,6 +30,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    marginTop: Constants.statusBarHeight - 10
   },
   title: {
     fontSize: 20,

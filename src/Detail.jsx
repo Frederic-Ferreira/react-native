@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from "react-native";
 export default function Detail() {
   return (
     <View style={styles.container}>
-      <Text>Yes</Text>
+      <Text>This is the detail page.</Text>
       <StatusBar style="auto" />
     </View>
   );
