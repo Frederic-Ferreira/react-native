@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { View } from 'react-native';
 import Login from './src/Login';
 import Register from './src/Register';
@@ -11,6 +11,9 @@ import Detail from './src/Detail';
 import NavBar from './src/components/NavBar';
 import { useEffect } from "react";
 import connectionStore from "./src/store/connectionStore";
+import Places from "./src/components/Places";
+import Place from "./src/components/Place";
+import NewPlace from "./src/components/NewPlace";
 
 const httpLink = createHttpLink({
   uri: 'https://digitalcampus.nerdy-bear.com/graphql',
@@ -40,7 +43,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
 
@@ -73,6 +76,9 @@ export default function App() {
               <>
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Detail" component={Detail} />
+                <Stack.Screen name="Places" component={Places} />
+                <Stack.Screen name="NewPlace" component={NewPlace} />
+                <Stack.Screen name="Place" component={Place} />
               </>
             }
           </Stack.Navigator>

@@ -1,15 +1,14 @@
 // import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StyleSheet, View, Button } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
+
 import Todos from './components/Todos';
 
 export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Todos />
-      <Button title="Go todetails" onPress={() => navigation.navigate('Detail')} />
-      {/* <StatusBar backgroundColor="red" barStyle="light-content" /> */}
+      <Text style={styles.text}>Welcome to the App!</Text>
     </View>
   );
 }
@@ -21,6 +20,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    color: "red"
+    color: "grey",
+    fontSize: 23
   },
 });

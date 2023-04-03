@@ -1,18 +1,24 @@
 import { View, StyleSheet, Text, SafeAreaView } from 'react-native';
 import Constants from 'expo-constants'
-import { StatusBar } from 'react-native';
+import connectionStore from "../store/connectionStore";
 
 function Navbar({navigation, route}) {
 
+  const { connected } = connectionStore();
   return (
     <View style={styles.navbar}>
-            <>
-            <Text style={styles.title} onPress={() => navigation.navigate('Login')}>Login</Text>
-            <Text style={styles.title} onPress={() => navigation.navigate('Register')}>Register</Text>
-            {/* <Text style={styles.title} onPress={() => navigation.navigate('Home')}>Home</Text>
-            <Text style={styles.title} onPress={() => navigation.navigate('Detail')}>Detail</Text> */}
-            {/* <Text style={[styles.title, styles.back]} onPress={() => navigation.goBack()}>Back</Text> */}
-            </> 
+            {!connected ? (
+                <>
+                    <Text style={styles.title} onPress={() => navigation.navigate('Login')}>Login</Text>
+                    <Text style={styles.title} onPress={() => navigation.navigate('Register')}>Register</Text>
+                </>
+
+                ) : (
+                <>
+                    <Text style={styles.title} onPress={() => navigation.navigate('Home')}>Home</Text>
+                    <Text style={styles.title} onPress={() => navigation.navigate('Places')}>Places</Text>
+                </>
+              )}
     </View>
   );
 }
