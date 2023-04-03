@@ -9,6 +9,8 @@ import Register from './src/Register';
 import Home from "./src/Home";
 import Detail from './src/Detail';
 import NavBar from './src/components/NavBar';
+import { useEffect } from "react";
+import connectionStore from "./src/store/connectionStore";
 
 const httpLink = createHttpLink({
   uri: 'https://digitalcampus.nerdy-bear.com/graphql',
@@ -41,6 +43,20 @@ const client = new ApolloClient({
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+  const { connected, setConnected, setDisconnected } = connectionStore();
+
+  useEffect(() => {
+    console.log(connected)
+    getJWT().then((jwt) => {
+      if (jwt && !connected) {
+        setConnected();
+      } else if(!jwt && connected) {
+        setDisconnected();
+      }
+    })
+  }, [connected])
+
   return (
     <ApolloProvider client={client}>
       <View style={{flex: 1}}>
@@ -48,10 +64,18 @@ export default function App() {
           <Stack.Navigator initialRouteName="Login" screenOptions={{
               header: NavBar,
             }}>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Detail" component={Detail} />
+            { !connected &&
+              <>
+                <Stack.Screen name="Login" component={Login}/>
+                <Stack.Screen name="Register" component={Register} />
+              </>
+            }
+            { connected &&
+              <>
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Detail" component={Detail} />
+              </>
+            }
           </Stack.Navigator>
         </NavigationContainer>
       </View>

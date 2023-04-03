@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { gql, useMutation } from '@apollo/client';
+import connectionStore from "./store/connectionStore";
 
 const LOGIN_MUTATION = gql`
 mutation($input: UsersPermissionsLoginInput!) {
@@ -17,13 +18,15 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
+  const { setConnected } = connectionStore();
 
   const handleLogin = async () => {
     if(email && password){
       try{
         const { data } = await login({ variables: { input: { "identifier": email, "password": password } } });
         await AsyncStorage.setItem('jwt', data.login.jwt);
-        navigation.navigate('Home')
+        setConnected()
+        // navigation.navigate('Home')
       } catch (err){
         console.log(err)
       }
