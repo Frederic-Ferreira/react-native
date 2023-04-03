@@ -47,7 +47,6 @@ export default function App() {
   const { connected, setConnected, setDisconnected } = connectionStore();
 
   useEffect(() => {
-    console.log(connected)
     getJWT().then((jwt) => {
       if (jwt && !connected) {
         setConnected();
