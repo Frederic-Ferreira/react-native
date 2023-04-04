@@ -14,6 +14,7 @@ import connectionStore from "./src/store/connectionStore";
 import Places from "./src/components/Places";
 import Place from "./src/components/Place";
 import NewPlace from "./src/components/NewPlace";
+import MapScreen from "./src/components/Map";
 
 const httpLink = createHttpLink({
   uri: 'https://digitalcampus.nerdy-bear.com/graphql',
@@ -21,7 +22,7 @@ const httpLink = createHttpLink({
 
 const getJWT = async () => {
   try {
-      const jwt = await AsyncStorage.getItem('jwt');
+      const jwt = await AsyncStorage.getItem('jwt2');
       return jwt;
   } catch (error) {
       console.log(error);
@@ -79,6 +80,7 @@ export default function App() {
                 <Stack.Screen name="Places" component={Places} />
                 <Stack.Screen name="NewPlace" component={NewPlace} />
                 <Stack.Screen name="Place" component={Place} />
+                <Stack.Screen name="Map" component={MapScreen} />
               </>
             }
           </Stack.Navigator>

@@ -24,7 +24,7 @@ export default function Login({ navigation }) {
     if(email && password){
       try{
         const { data } = await login({ variables: { input: { "identifier": email, "password": password } } });
-        await AsyncStorage.setItem('jwt', data.login.jwt);
+        await AsyncStorage.setItem('jwt2', data.login.jwt);
         setConnected()
         // navigation.navigate('Home')
       } catch (err){

@@ -64,8 +64,8 @@ export default function Place({ navigation, route }){
         if(data && !updateMode){
             setTitle(data.place.data.attributes.title);
             setAddress(data.place.data.attributes.address);
-            setLatitude(data.place.data.attributes.latitude);
-            setLongitude(data.place.data.attributes.longitude);
+            setLatitude(data.place.data.attributes.latitude.toString());
+            setLongitude(data.place.data.attributes.longitude.toString());
         }
     }, [data])
 
@@ -104,7 +104,7 @@ export default function Place({ navigation, route }){
         buttonsContainer: {
             flex: 1,
             flexDirection: 'row',
-            gap: 20,
+            marginHorizontal: 10,
             marginTop: 30
         },
         place: {
@@ -135,16 +135,14 @@ export default function Place({ navigation, route }){
                 <View style={styles.place} key={data.place.data.attributes.id}>
                     <Text>{data.place.data.attributes.title}</Text>
                     <Text>{data.place.data.attributes.address}</Text>
-                    <View style={styles.buttonsContainer}>
+                    <View>
                         <Button
                         title="Delete"
                         onPress={handleDeletePlace}
-                        style={styles.deleteButton}
                         />
                         <Button
                             title="Update"
                             onPress={() => setUpdateMode(true)}
-                            style={styles.deleteButton}
                         />
                     </View>
                 </View>

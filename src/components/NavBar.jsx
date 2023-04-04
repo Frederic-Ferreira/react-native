@@ -16,6 +16,7 @@ function Navbar({navigation, route}) {
                 ) : (
                 <>
                     <Text style={styles.title} onPress={() => navigation.navigate('Home')}>Home</Text>
+                    <Text style={styles.title} onPress={() => navigation.navigate('Map')}>Map</Text>
                     <Text style={styles.title} onPress={() => navigation.navigate('Places')}>Places</Text>
                 </>
               )}
